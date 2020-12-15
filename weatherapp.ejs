@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather App Project</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="style.css"> 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+</head>
+<body>
+
+
+
+<div class = container>
+    <hr>
+    <h1 id="fancy-bg">CCPS530 Dictionary Website <br> by Roman Popadiuk (500689007) </h1>
+    <hr>
+
+    <div class = "row">
+        <button class = "button" style = "vertical-align: middle">Click here to see the definition of heart</button>
+    </div>
+
+    <div>
+        <input id="text1" placeholder="Enter anything">
+        <br>
+        <button class = "button">Click me</button>
+    </div>
+    
+
+    
+    <div class="row" id="weather-info"></div>
+
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+    
+</div>
+
+
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+
+    // Register for a free API key 
+    const apiKey = '31789b0c-6784-46cc-98ae-8f4f22580d7a'; //dictionary api
+
+    //let wordID = document.getElementById("text1").value;
+    let wordID = 'banana';
+
+    let url = `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${wordID}?key=${apiKey}`
+    
+    $(document).ready(function(){
+      $("button").click(function(){
+        $.getJSON(url, function(word_def){
+            var output = "";
+      
+                
+            let W = word_def[0];
+    
+            console.log("Word definition successfully gathered for: " +wordID);
+            output +=
+            `
+                <div class="col-4">
+                    <div class="card">                 
+                        <div class="card-body">
+                            <h5 class="card-title">${W.meta.id}</h5>
+
+                            <div id = "weather-desc"> ${W.shortdef[0]} </div>
+    
+                        </div>
+
+                    </div>
+                </div>
+            `
+                
+        $("#weather-info").html(output)
+        
+    
+        });
+      });
+    });
+    </script>
+
+
+</body>
+</html>
